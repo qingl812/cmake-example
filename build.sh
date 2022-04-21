@@ -1,5 +1,5 @@
 #!/bin/bash
-source scripts/build_all.sh
+source scripts/build.sh
 
 # exit if error
 set -e
