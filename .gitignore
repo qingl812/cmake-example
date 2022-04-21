@@ -1,0 +1,10 @@
+build/
+
+# vscode
+.vscode/
+.history/
+
+# visual studio
+out/
+.vs/
+CMakeSettings.json
