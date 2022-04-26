@@ -45,7 +45,7 @@ elif [ ${arg_1} == "test" ]; then
     fi
 
 elif [ ${arg_1} == "coverage_server" ]; then
-    version=$(${server_exe} 2>>${log_file})
+    version=$(${server_exe} --version 2>>${log_file})
     if [ $? -ne 0 ]; then
         exit_with_error "${server_exe} not found. Please install ${server_exe}."
     fi
