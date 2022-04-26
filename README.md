@@ -12,6 +12,8 @@
 - `bash build.sh` 来构建并运行项目
 - `bash build.sh clean` 清理项目
 - `bash build.sh rebuild` 重新构建项目
+- `bash build.sh test` 运行单元测试，并使用 lcov 生成代码覆盖率报告
+- `bash build.sh help` 获取更多信息
 
 ## Usage Notes
 
