@@ -19,13 +19,16 @@ function init() {
     # msvc
     if [ "${cxx_compiler}" == "msvc" ]; then
         exe_file="${build_dir}/Debug/${project_name}"
+        test_exe_file="${build_dir}/test/Debug/${project_name}"
     else
         exe_file="${build_dir}/${project_name}"
+        test_exe_file="${build_dir}/test/${project_name}"
     fi
 
     # windows
     if [ get_system_name == "windows" ]; then
         exe_file="${exe_file}.exe"
+        test_exe_file="${test_exe_file}.exe"
     fi
 }
 
@@ -64,6 +67,27 @@ function build() {
     ${exe_file}
     if [ $? -ne 0 ]; then
         print_error "${exe_file} return code is $?"
+        exit 1
+    fi
+}
+
+# {test_project_name} {build_dir} {log_file} {cxx_compiler}
+function build_test() {
+    # need 4 argu
+    if [ $# -ne 4 ]; then
+        exit_with_error "Usage: build {test_project_name} {build_dir} {log_file} {cxx_compiler}"
+    fi
+
+    init $1 $2 $3 $4
+
+    # cmake
+    run_no_error bash scripts/cmake.sh ${log_file} ${build_dir} ${cxx_compiler}
+
+    # Execute the generated program
+    print_info "Running ${test_exe_file}..."
+    ${test_exe_file}
+    if [ $? -ne 0 ]; then
+        print_error "${test_exe_file} return code is $?"
         exit 1
     fi
 }
