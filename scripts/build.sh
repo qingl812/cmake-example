@@ -9,7 +9,7 @@ function init() {
     cxx_compiler=$4
 
     # if linux and cxx_compiler==msvc, use gcc
-    system=`get_system_name`
+    system=$(get_system_name)
     if [ ${system} == "linux" ] && [ "$cxx_compiler" == "msvc" ]; then
         cxx_compiler="gcc"
     fi
@@ -95,5 +95,20 @@ function build_test() {
     if [ $? -ne 0 ]; then
         print_error "${test_exe_file} return code is $?"
         exit 1
+    fi
+}
+
+function code_coverage() {
+    # need 3 argu
+    if [ $# -ne 3 ]; then
+        exit_with_error "Usage: lcov.sh {build_dir} {lcov_dir} {log_file}"
+    fi
+
+    # Currently only supports linux
+    system=$(get_system_name)
+    if [ ${system} == "linux" ]; then
+        run_no_error bash scripts/lcov.sh $1 $2 $3
+    else
+        print_error "Currently only supports Linux generating code coverage report."
     fi
 }

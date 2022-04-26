@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 if(MSVC)
 add_compile_options("/utf-8")
 else()
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall")
+set(CMAKE_CXX_FLAGS "-g -O0 -Wall -coverage")
 endif()
 
 set(

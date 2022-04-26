@@ -32,7 +32,7 @@ function run_no_error() {
 
     # error
     if [ $? -ne 0 ]; then
-        exit_with_error "$1"
+        exit_with_error "$@"
     fi
 }
 
