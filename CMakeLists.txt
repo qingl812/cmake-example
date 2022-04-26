@@ -18,8 +18,10 @@ set(
 
     # source files
     "src/example.cpp"
+    "src/main.cpp"
 )
 
 include_directories("include")
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+add_subdirectory(test)
