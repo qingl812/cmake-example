@@ -12,6 +12,15 @@ code_coverage_dir="${build_dir}/lcov" # 为空则不生成代码覆盖率报告
 server_exe="live-server"
 server_argv=(--port=5500 --open=${code_coverage_dir}/html)
 
+function help() {
+    echo "help: print help info"
+    echo "build: build project"
+    echo "clean: clean build"
+    echo "rebuild: clean build and build again"
+    echo "test: test project and generate code coverage report"
+    echo "coverage_server: start server to view code coverage report"
+}
+
 # default build
 if [ $# -eq 0 ]; then
     arg_1="build"
@@ -42,6 +51,10 @@ elif [ ${arg_1} == "coverage_server" ]; then
     fi
     run_no_error ${server_exe} "${server_argv[@]}"
 
+elif [ ${arg_1} == "help" ]; then
+    help
+
 else
     print_error "Unknown command: ${arg_1}"
+    help
 fi
