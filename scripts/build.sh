@@ -86,6 +86,15 @@ function build_test() {
 
     init $1 $2 $3 $4
 
+    # clean old gcov
+    # @todo need improve
+    print_info "Cleaning gcov files..." >>${log_file}
+    # if exist ${build_dir}/CMakeFiles
+    if [ -d ${build_dir}/CMakeFiles ]; then
+        old_files=$(find ${build_dir}/test/CMakeFiles -name '*.gcda')
+        run_no_error rm -f ${old_files}
+    fi
+
     # cmake
     run_no_error bash scripts/cmake.sh ${log_file} ${build_dir} ${cxx_compiler}
 
