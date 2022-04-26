@@ -5,8 +5,7 @@ project(cmake-example)
 set(CMAKE_CXX_STANDARD 11)
 # msvc or gcc
 if(MSVC)
-add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
-add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("/utf-8")
 else()
 set(CMAKE_CXX_FLAGS "-g -O0 -Wall")
 endif()
@@ -23,5 +22,8 @@ set(
 
 include_directories("include")
 
+enable_testing()
+
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+
 add_subdirectory(test)
