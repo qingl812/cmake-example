@@ -13,7 +13,8 @@ fi
 # compiler_options
 if [ "${cxx_compiler}" == "gcc" ]; then
     # gcc
-    if [ get_system_name == "windows" ]; then
+    system=`get_system_name`
+    if [ $system == "windows" ]; then
         compiler_options=(-G "MinGW Makefiles")
     fi
 else

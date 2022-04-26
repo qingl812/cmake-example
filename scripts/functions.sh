@@ -46,9 +46,9 @@ function mkdir_if_not_exist() {
 # get system name
 function get_system_name() {
     if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        return "linux"
+        echo "linux"
     elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
-        return "windows"
+        echo "windows"
     else
         exit_with_error "Unknown operating system"
     fi
