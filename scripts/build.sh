@@ -8,6 +8,12 @@ function init() {
     log_file=$3
     cxx_compiler=$4
 
+    # if linux and cxx_compiler==msvc, use gcc
+    system=`get_system_name`
+    if [ ${system} == "linux" ] && [ "$cxx_compiler" == "msvc" ]; then
+        cxx_compiler="gcc"
+    fi
+
     # mkdir if not exist
     mkdir_if_not_exist ${build_dir}
 
