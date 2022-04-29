@@ -6,6 +6,8 @@
 
 - 跨平台 linux/windows
 - 跨编译器 gcc/msvc
+- 单元测试 gtest
+- 代码覆盖率 lcov
 
 ## build
 
