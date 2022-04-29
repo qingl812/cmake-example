@@ -10,6 +10,8 @@ else()
 set(CMAKE_CXX_FLAGS "-g -O0 -Wall -coverage")
 endif()
 
+SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
 set(
     PROJECT_SOURCES
     # header files

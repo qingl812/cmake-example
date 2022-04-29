@@ -24,12 +24,10 @@ function init() {
 
     if [ "${cxx_compiler}" == "msvc" ]; then
         # msvc
-        exe_dir="${build_dir}/Debug"
-        test_dir="${build_dir}/test/Debug"
+        exe_dir="${build_dir}/bin/Debug"
     else
         # gcc
-        exe_dir="${build_dir}"
-        test_dir="${build_dir}/test"
+        exe_dir="${build_dir}/bin"
     fi
 
     system=$(get_system_name)
@@ -76,38 +74,6 @@ function build() {
     print_info "Running ${exe_dir}/${exe_file}..."
     cur_path=$(pwd)
     cd ${exe_dir}
-    ./${exe_file}
-    cd ${cur_path}
-    if [ $? -ne 0 ]; then
-        print_error "${exe_file} return code is $?"
-        exit 1
-    fi
-}
-
-# {test_project_name} {build_dir} {log_file} {cxx_compiler}
-function build_test() {
-    # need 4 argu
-    if [ $# -ne 4 ]; then
-        exit_with_error "Usage: build {test_project_name} {build_dir} {log_file} {cxx_compiler}"
-    fi
-
-    init $1 $2 $3 $4
-
-    # clean old gcov
-    # @todo need improve
-    print_info "Cleaning gcov files..." >>${log_file}
-    # if exist ${build_dir}/CMakeFiles
-    if [ -d ${build_dir}/CMakeFiles ]; then
-        old_files=$(find ${build_dir}/test/CMakeFiles -name '*.gcda')
-        run_no_error rm -f ${old_files}
-    fi
-
-    # cmake
-    run_no_error bash scripts/cmake.sh ${log_file} ${build_dir} ${cxx_compiler}
-
-    # Execute the generated program
-    print_info "Running ${test_dir}/${exe_file}..."
-    cd ${test_dir}
     ./${exe_file}
     cd ${cur_path}
     if [ $? -ne 0 ]; then

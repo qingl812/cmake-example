@@ -20,6 +20,7 @@
 ## Usage Notes
 
 - 如果使用 vscode 建议修改 cmake 默认构建目录，避免和 `build.sh` 的构建目录冲突
+- 如果编译失败，可能是 test/CMakeLists.txt 中 gtest 的链接失效，请改为 github 上的链接（注意网络问题）
 
 ## License
 

@@ -39,9 +39,13 @@ elif [ ${arg_1} == "rebuild" ]; then
     build ${project_name} ${build_dir} ${log_file} ${cxx_compiler}
 
 elif [ ${arg_1} == "test" ]; then
-    build_test ${test_project_name} ${build_dir} ${log_file} ${cxx_compiler}
+    build ${test_project_name} ${build_dir} ${log_file} ${cxx_compiler}
     if [ "code_coverage_dir" != "" ]; then
-        code_coverage ${build_dir} ${code_coverage_dir} ${log_file}
+        # Currently only supports linux
+        system=$(get_system_name)
+        if [ ${system} == "linux" ]; then
+            code_coverage ${build_dir} ${code_coverage_dir} ${log_file}
+        fi
     fi
 
 elif [ ${arg_1} == "coverage_server" ]; then
