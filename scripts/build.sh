@@ -22,19 +22,23 @@ function init() {
         rm ${log_file}
     fi
 
-    # msvc
     if [ "${cxx_compiler}" == "msvc" ]; then
-        exe_file="${build_dir}/Debug/${project_name}"
-        test_exe_file="${build_dir}/test/Debug/${project_name}"
+        # msvc
+        exe_dir="${build_dir}/Debug"
+        test_dir="${build_dir}/test/Debug"
     else
-        exe_file="${build_dir}/${project_name}"
-        test_exe_file="${build_dir}/test/${project_name}"
+        # gcc
+        exe_dir="${build_dir}"
+        test_dir="${build_dir}/test"
     fi
 
-    # windows
-    if [ get_system_name == "windows" ]; then
-        exe_file="${exe_file}.exe"
-        test_exe_file="${test_exe_file}.exe"
+    system=$(get_system_name)
+    if [ ${system} == "windows" ]; then
+        # windows
+        exe_file="${project_name}.exe"
+    else
+        # linux
+        exe_file="${project_name}"
     fi
 }
 
@@ -69,8 +73,11 @@ function build() {
     run_no_error bash scripts/cmake.sh ${log_file} ${build_dir} ${cxx_compiler}
 
     # Execute the generated program
-    print_info "Running ${exe_file}..."
-    ${exe_file}
+    print_info "Running ${exe_dir}/${exe_file}..."
+    cur_path=$(pwd)
+    cd ${exe_dir}
+    ./${exe_file}
+    cd ${cur_path}
     if [ $? -ne 0 ]; then
         print_error "${exe_file} return code is $?"
         exit 1
@@ -99,10 +106,12 @@ function build_test() {
     run_no_error bash scripts/cmake.sh ${log_file} ${build_dir} ${cxx_compiler}
 
     # Execute the generated program
-    print_info "Running ${test_exe_file}..."
-    ${test_exe_file}
+    print_info "Running ${test_dir}/${exe_file}..."
+    cd ${test_dir}
+    ./${exe_file}
+    cd ${cur_path}
     if [ $? -ne 0 ]; then
-        print_error "${test_exe_file} return code is $?"
+        print_error "${exe_file} return code is $?"
         exit 1
     fi
 }
