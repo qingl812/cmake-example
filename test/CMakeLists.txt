@@ -8,6 +8,7 @@ set(
 
   "test.cpp"
 )
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # gtest
 include(FetchContent)
@@ -19,10 +20,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-enable_testing()
-
 add_executable(${PROJECT_NAME} ${TEST_SOURCES})
-
 target_link_libraries(
   ${PROJECT_NAME}
   gtest_main

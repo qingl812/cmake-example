@@ -21,11 +21,9 @@ set(
     "src/example.cpp"
     "src/main.cpp"
 )
-
 include_directories("include")
-
-enable_testing()
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
+enable_testing()
 add_subdirectory(test)
