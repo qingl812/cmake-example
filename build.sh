@@ -1,6 +1,7 @@
 #!/bin/bash
 source scripts/build.sh
 
+# set project_name='null' if not exec project
 project_name="cmake-example"
 build_dir="build"
 log_file="${build_dir}/build.log"
